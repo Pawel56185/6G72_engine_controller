@@ -1,0 +1,6 @@
+../Core/Src/stepper_motor.c:24:6:throttle_motor_step	3
+../Core/Src/stepper_motor.c:33:6:update_stepper_control	1
+../Core/Src/stepper_motor.c:40:6:stepper_motor_controller_init	2
+../Core/Src/stepper_motor.c:53:6:stepper_motor_request	2
+../Core/Src/stepper_motor.c:63:6:stepper_motor_controller_callback	7
+../Core/Src/stepper_motor.c:93:6:base_stepper_motor	2
