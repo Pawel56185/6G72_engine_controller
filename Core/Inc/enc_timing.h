@@ -1,43 +1,38 @@
 /*
  * timing.h
  *
- *  Created on: 4 maj 2026
- *      Author: Pmajc
+ * Created on: 4 maj 2026
+ * Author: Pmajc
  */
 
 #ifndef INC_ENC_TIMING_H_
 #define INC_ENC_TIMING_H_
 
-#define E_TIM_NONE                         65535
-#define E_TIM_TRUE                         1
-#define E_TIM_FALSE                        0
-#define E_TIM_WHICH_CYLINDER_UNKNOWN       0
-#define E_TIM_DEGS_PAST_LAST_GMP_INI       65535
-#define E_TIM_ABSOLUTE_POSITION_INIT       65535
-#define E_TIM_RPM_INIT                     0
-#define E_TIM_IGNITION_ACCELERATION_INIT   0
-#define E_TIM_INJECTION_ACCELERATION_INIT  65535
+#define E_TIM_CYLINDER_UNKNOWN                  0
+#define E_TIM_CYLINDER_WITH_SYNCH_HOLE          4
+#define E_TIM_DEGS_BETWEEN_CYLINDERS            120
+#define E_TIM_DEGS_IN_HIGH_SPARSE               64
+#define E_TIM_DEGS_IN_LOW_SPARSE                56
 
 #include "main.h"
 
-
-
 typedef struct {
-	uint16_t which_cylinder;
-	uint16_t edges_past_last_gmp;
-	uint16_t absolute_position;
-	uint16_t rmp;
-	uint16_t ignition_acceleration;
-	uint16_t injection_acceleration;
-
-
+	volatile uint8_t which_cylinder;
+	volatile uint8_t sparse_falling_occurred;
+	volatile uint8_t sparse_rising_occurred;
+	volatile uint8_t edges_past_sparse_falling;
+	volatile uint8_t edges_past_sparse_rising;
+	volatile uint8_t synch_detected;
+	volatile uint16_t rpm;
+	volatile uint32_t us_per_deg;     //estimated time between dense edges
+	volatile uint32_t dwt_time_of_recent_falling;
+	volatile uint8_t edge_start;
+	volatile uint8_t edge_shoot;
 }engine_position_and_timing;
 
-void dense_encoder_callback(engine_position_and_timing* pos);
-void sparse_encoder_callback(engine_position_and_timing* pos);
-void TIM_InitPositionData(engine_position_and_timing *pos);
-
-
-
+void encoder_init(engine_position_and_timing* pos);
+void dense_edge_callback(engine_position_and_timing* pos);
+void sparse_edge_callback(engine_position_and_timing* pos);
+void start_dwell(engine_position_and_timing* pos);
 
 #endif /* INC_ENC_TIMING_H_ */

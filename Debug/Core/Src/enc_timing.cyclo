@@ -1,0 +1,10 @@
+../Core/Src/enc_timing.c:27:6:encoder_init	1
+../Core/Src/enc_timing.c:41:6:sparse_edge_callback	8
+../Core/Src/enc_timing.c:69:6:dense_edge_callback	6
+../Core/Src/enc_timing.c:88:6:order_spark_event	3
+../Core/Src/enc_timing.c:104:9:get_ignition_advance	2
+../Core/Src/enc_timing.c:112:10:calculate_us_per_deg	2
+../Core/Src/enc_timing.c:117:10:us_per_deg_to_rpm	2
+../Core/Src/enc_timing.c:122:10:get_dwell_angle	2
+../Core/Src/enc_timing.c:127:6:start_dwell	7
+../Core/Src/enc_timing.c:140:6:start_spark_timer	1
