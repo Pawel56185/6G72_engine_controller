@@ -1,0 +1,2 @@
+../Core/Src/dwt_timer.c:10:6:DWT_Init	4	static
+../Core/Src/dwt_timer.c:16:10:DWT_GetMicros	4	static

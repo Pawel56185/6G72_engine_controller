@@ -24,6 +24,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "stepper_motor.h"
+#include "enc_timing.h"
+#include "dwt_timer.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,6 +47,7 @@
 
 /* USER CODE BEGIN PV */
 stepper_motor_t throttle_stepper_motor;
+engine_position_and_timing pos;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -88,9 +91,13 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM6_Init();
+  MX_TIM7_Init();
+  MX_TIM13_Init();
   /* USER CODE BEGIN 2 */
   	  HAL_TIM_Base_Init(&htim6);
+  	  HAL_TIM_Base_Init(&htim7);
   	  stepper_motor_controller_init(&throttle_stepper_motor);
+	  DWT_Init();
   	  base_stepper_motor(&throttle_stepper_motor);
 
   /* USER CODE END 2 */
@@ -99,18 +106,15 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  HAL_Delay(10);
-	  if (HAL_GPIO_ReadPin(STEPPER_LEFT_GPIO_Port, STEPPER_LEFT_Pin)){
-		  HAL_GPIO_WritePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin, GPIO_PIN_SET);
-		  throttle_motor_step((int8_t)1);
-		  update_stepper_control();
+//	  if (pos.spin_wtdg){
+//
+//	  	  }
+	  HAL_Delay(250);
+//	  if (!(pos.spin_wtdg)){
+//
+//	  }
 
-	  } else if (HAL_GPIO_ReadPin(STEPPER_RIGHT_GPIO_Port, STEPPER_RIGHT_Pin)){
-		  HAL_GPIO_WritePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin, GPIO_PIN_RESET);
-		  throttle_motor_step((int8_t)-1);
-		  update_stepper_control();
-	  }
-
+	  HAL_GPIO_TogglePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin);
 
 
     /* USER CODE END WHILE */
@@ -171,6 +175,21 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if (htim->Instance == TIM6){
 		stepper_motor_controller_callback(&throttle_stepper_motor);
 	}
+	else if (htim -> Instance == TIM7){
+		TIM7->SR &= ~TIM_SR_UIF;
+		start_dwell(&pos);
+	}
+
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if (GPIO_Pin == ENC_DENSE_Pin){
+	  dense_edge_callback(&pos);
+  }
+  else if (GPIO_Pin == ENC_SPARSE_Pin){
+	  sparse_edge_callback(&pos);
+  }
 
 }
 

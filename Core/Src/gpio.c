@@ -58,9 +58,11 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(DEBUG_LED_GPIO_Port, DEBUG_LED_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOD, WTR1_Pin|WTR2_Pin|WTR3_Pin|WTR4_Pin
-                          |WTR5_Pin|WTR6_Pin|CEWKA1_OD_Pin|CEWKA2_OD_Pin
-                          |CEWKA3_OD_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOD, INJECTOR1_Pin|INJECTOR2_Pin|INJECTOR3_Pin|INJECTOR4_Pin
+                          |INJECTOR5_Pin|INJECTOR6_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOD, COIL_1_4_Pin|COIL_2_5_Pin|COIL_3_6_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pins : STEP_1_Pin STEP_2_Pin STEP_3_Pin STEP_4_Pin */
   GPIO_InitStruct.Pin = STEP_1_Pin|STEP_2_Pin|STEP_3_Pin|STEP_4_Pin;
@@ -75,17 +77,11 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : ENC_SPARSE_Pin */
-  GPIO_InitStruct.Pin = ENC_SPARSE_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(ENC_SPARSE_GPIO_Port, &GPIO_InitStruct);
-
-  /*Configure GPIO pin : ENC_DENSE_Pin */
-  GPIO_InitStruct.Pin = ENC_DENSE_Pin;
+  /*Configure GPIO pins : ENC_SPARSE_Pin ENC_DENSE_Pin */
+  GPIO_InitStruct.Pin = ENC_SPARSE_Pin|ENC_DENSE_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(ENC_DENSE_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pin : DEBUG_LED_Pin */
   GPIO_InitStruct.Pin = DEBUG_LED_Pin;
@@ -94,21 +90,28 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(DEBUG_LED_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : WTR1_Pin WTR2_Pin WTR3_Pin WTR4_Pin
-                           WTR5_Pin WTR6_Pin */
-  GPIO_InitStruct.Pin = WTR1_Pin|WTR2_Pin|WTR3_Pin|WTR4_Pin
-                          |WTR5_Pin|WTR6_Pin;
+  /*Configure GPIO pins : INJECTOR1_Pin INJECTOR2_Pin INJECTOR3_Pin INJECTOR4_Pin
+                           INJECTOR5_Pin INJECTOR6_Pin */
+  GPIO_InitStruct.Pin = INJECTOR1_Pin|INJECTOR2_Pin|INJECTOR3_Pin|INJECTOR4_Pin
+                          |INJECTOR5_Pin|INJECTOR6_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : CEWKA1_OD_Pin CEWKA2_OD_Pin CEWKA3_OD_Pin */
-  GPIO_InitStruct.Pin = CEWKA1_OD_Pin|CEWKA2_OD_Pin|CEWKA3_OD_Pin;
+  /*Configure GPIO pins : COIL_1_4_Pin COIL_2_5_Pin COIL_3_6_Pin */
+  GPIO_InitStruct.Pin = COIL_1_4_Pin|COIL_2_5_Pin|COIL_3_6_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
   HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI1_IRQn, 2, 0);
+  HAL_NVIC_EnableIRQ(EXTI1_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI2_IRQn, 3, 0);
+  HAL_NVIC_EnableIRQ(EXTI2_IRQn);
 
 }
 

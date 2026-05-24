@@ -1,6 +1,6 @@
-../Core/Src/stepper_motor.c:24:6:throttle_motor_step	16	static
-../Core/Src/stepper_motor.c:33:6:update_stepper_control	8	static
-../Core/Src/stepper_motor.c:40:6:stepper_motor_controller_init	16	static
-../Core/Src/stepper_motor.c:53:6:stepper_motor_request	16	static
-../Core/Src/stepper_motor.c:63:6:stepper_motor_controller_callback	16	static
-../Core/Src/stepper_motor.c:93:6:base_stepper_motor	16	static
+../Core/Src/stepper_motor.c:30:6:throttle_motor_step	16	static
+../Core/Src/stepper_motor.c:39:6:update_stepper_control	8	static
+../Core/Src/stepper_motor.c:46:6:stepper_motor_controller_init	16	static
+../Core/Src/stepper_motor.c:59:6:stepper_motor_request	16	static
+../Core/Src/stepper_motor.c:69:6:stepper_motor_controller_callback	16	static
+../Core/Src/stepper_motor.c:99:6:base_stepper_motor	16	static

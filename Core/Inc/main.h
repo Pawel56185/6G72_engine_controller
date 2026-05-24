@@ -69,8 +69,10 @@ void Error_Handler(void);
 #define BASE_GPIO_Port GPIOA
 #define ENC_SPARSE_Pin GPIO_PIN_1
 #define ENC_SPARSE_GPIO_Port GPIOA
+#define ENC_SPARSE_EXTI_IRQn EXTI1_IRQn
 #define ENC_DENSE_Pin GPIO_PIN_2
 #define ENC_DENSE_GPIO_Port GPIOA
+#define ENC_DENSE_EXTI_IRQn EXTI2_IRQn
 #define HOME_Pin GPIO_PIN_3
 #define HOME_GPIO_Port GPIOA
 #define STEPPER_LEFT_Pin GPIO_PIN_4
@@ -79,27 +81,31 @@ void Error_Handler(void);
 #define STEPPER_RIGHT_GPIO_Port GPIOA
 #define DEBUG_LED_Pin GPIO_PIN_12
 #define DEBUG_LED_GPIO_Port GPIOB
-#define WTR1_Pin GPIO_PIN_10
-#define WTR1_GPIO_Port GPIOD
-#define WTR2_Pin GPIO_PIN_11
-#define WTR2_GPIO_Port GPIOD
-#define WTR3_Pin GPIO_PIN_12
-#define WTR3_GPIO_Port GPIOD
-#define WTR4_Pin GPIO_PIN_13
-#define WTR4_GPIO_Port GPIOD
-#define WTR5_Pin GPIO_PIN_14
-#define WTR5_GPIO_Port GPIOD
-#define WTR6_Pin GPIO_PIN_15
-#define WTR6_GPIO_Port GPIOD
-#define CEWKA1_OD_Pin GPIO_PIN_0
-#define CEWKA1_OD_GPIO_Port GPIOD
-#define CEWKA2_OD_Pin GPIO_PIN_1
-#define CEWKA2_OD_GPIO_Port GPIOD
-#define CEWKA3_OD_Pin GPIO_PIN_2
-#define CEWKA3_OD_GPIO_Port GPIOD
+#define INJECTOR1_Pin GPIO_PIN_10
+#define INJECTOR1_GPIO_Port GPIOD
+#define INJECTOR2_Pin GPIO_PIN_11
+#define INJECTOR2_GPIO_Port GPIOD
+#define INJECTOR3_Pin GPIO_PIN_12
+#define INJECTOR3_GPIO_Port GPIOD
+#define INJECTOR4_Pin GPIO_PIN_13
+#define INJECTOR4_GPIO_Port GPIOD
+#define INJECTOR5_Pin GPIO_PIN_14
+#define INJECTOR5_GPIO_Port GPIOD
+#define INJECTOR6_Pin GPIO_PIN_15
+#define INJECTOR6_GPIO_Port GPIOD
+#define COIL_1_4_Pin GPIO_PIN_0
+#define COIL_1_4_GPIO_Port GPIOD
+#define COIL_2_5_Pin GPIO_PIN_1
+#define COIL_2_5_GPIO_Port GPIOD
+#define COIL_3_6_Pin GPIO_PIN_2
+#define COIL_3_6_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
-
+#define TRUE    1
+#define FALSE   0
+#define INF8    255
+#define INF16   65535
+#define INF32   4294967295
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
